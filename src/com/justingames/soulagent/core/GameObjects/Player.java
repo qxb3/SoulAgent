@@ -27,7 +27,7 @@ public class Player extends GameObject {
 	private boolean isDamaged = false;
 	private boolean isDead = false;
 	
-	private float stateTimer = 0;
+	private float stateTime = 0;
 	
 	public Player(World world, Vector2 position) {
 		super(world, position);
@@ -54,7 +54,7 @@ public class Player extends GameObject {
 		previousState = State.STANDING;
 		
 		this.setBounds(0, 0, 0.32f, 0.32f);
-		this.setRegion(Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTimer, true));
+		this.setRegion(Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true));
 	}
 	
 	@Override
@@ -128,22 +128,22 @@ public class Player extends GameObject {
        
 		switch (currentState) {
             case JUMPING:
-                region = Assets.instance.playerAssets.jumpingAnimation.getKeyFrame(stateTimer, true);
+                region = Assets.instance.playerAssets.jumpingAnimation.getKeyFrame(stateTime, true);
                 break;
             case RUNNING:
-                region = Assets.instance.playerAssets.runningAnimation.getKeyFrame(stateTimer, true);
+                region = Assets.instance.playerAssets.runningAnimation.getKeyFrame(stateTime, true);
                 break;
             case FALLING:
-                region = Assets.instance.playerAssets.fallingAnimation.getKeyFrame(stateTimer, true);
+                region = Assets.instance.playerAssets.fallingAnimation.getKeyFrame(stateTime, true);
                 break;
             case DEAD:
-                region = Assets.instance.playerAssets.deathAnimation.getKeyFrame(stateTimer, false);
+                region = Assets.instance.playerAssets.deathAnimation.getKeyFrame(stateTime, false);
                 break;
             case STANDING:
-				region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTimer, true);
+				region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
 				break;
             default:
-                region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTimer, true);
+                region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
                 break;
         }
 
@@ -156,9 +156,9 @@ public class Player extends GameObject {
         }
 
         if (currentState == previousState)
-            stateTimer += deltaTime;
+            stateTime += deltaTime;
         else
-            stateTimer = 0;
+            stateTime = 0;
 
         previousState = currentState;
 
