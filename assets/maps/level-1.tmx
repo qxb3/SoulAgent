@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<map version="1.2" orientation="orthogonal" renderorder="right-down" width="64" height="22" tilewidth="16" tileheight="16" nextobjectid="24">
+  <properties>
+    <property name="sw1" value="15" />
+    <property name="sw2" value="25" />
+    <property name="sw3" value="27" />
+    <property name="sw6" value="2" />
+  </properties>
+  <tileset firstgid="1" name="tileset" columns="12" tilecount="72" tileheight="16" tilewidth="16">
+    <image source="tileset/tileset.png" width="192" height="96" />
+  </tileset>
+  <objectgroup name="collidable">
+    <object name="" type="" id="11" x="0" y="160">
+      <polygon points="0,0 32,0 32,64 0,64 " />
+    </object>
+    <object name="" type="" id="12" x="0" y="224">
+      <polygon points="0,0 224,0 224,128 0,128 " />
+    </object>
+    <object name="" type="" id="18" x="272" y="208">
+      <polygon points="0,0 112,0 112,144 0,144 " />
+    </object>
+    <object name="" type="" id="19" x="384" y="352">
+      <polygon points="0,0 0,-192 224,-192 224,0 " />
+    </object>
+    <object name="" type="" id="20" x="672" y="160">
+      <polygon points="0,0 48,0 48,32 0,32 " />
+    </object>
+    <object name="" type="" id="22" x="784" y="352">
+      <polygon points="0,0 0,-192 208,-192 208,0 " />
+    </object>
+    <object name="" type="" id="23" x="992" y="352">
+      <polygon points="0,0 0,-304 32,-304 32,0 " />
+    </object>
+  </objectgroup>
+  <objectgroup name="player_spawn">
+    <object name="" type="" id="11" x="56" y="184">
+      <point />
+    </object>
+  </objectgroup>
+  <objectgroup name="stone_spawn">
+    <object name="" type="" id="10" x="328" y="200">
+      <point />
+    </object>
+  </objectgroup>
+  <layer name="graphics" width="64" height="22">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO2VzQqAIBCEtc790K0fev/HTDGhg5nbrig4A3PqMPOxEyoFQVBr0sZd6RIFNRiPpUsUFPjBD/52tSjHb9+APmOOf2coDvXRCd8oPpXjt57YlO/yO6M41Gc13ox3oYyvPCn5neXsw+Wf/8Ldiu3vubNa+Y9I/5T/k5vPvYd0PvU+fzZe0/25/aTzwQ9+8IMf/Pn5L4saMhEAFgAA
+  </data>
+  </layer>
+</map>
