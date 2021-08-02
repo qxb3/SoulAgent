@@ -14,13 +14,15 @@ public class Game extends Game {
 	public static final short GroundBit = 1;
 	public static final short PlayerBit = 2;
 	public static final short PlayerFootBit = 4;
+	public static final short StoneBit = 8;
 	
 	public static SpriteBatch batch;
+	public static Assets assets;
 	
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		Assets.instance.init(new AssetManager());
+		assets = new Assets(new AssetManager());
 		
 		setScreen(new GameScreen(this));
 	}
@@ -28,5 +30,11 @@ public class Game extends Game {
 	@Override
 	public void render() {
 		super.render();
+	}
+
+	@Override
+	public void dispose() {
+		batch.dispose();
+		assets.dispose();
 	}
 }

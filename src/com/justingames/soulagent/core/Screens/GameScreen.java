@@ -14,11 +14,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.justingames.soulagent.core.Game;
+import com.justingames.soulagent.core.GameObjects.Object.Stone;
 import com.justingames.soulagent.core.GameObjects.Object.TiledMapObjects;
 import com.justingames.soulagent.core.GameObjects.Player;
 import com.justingames.soulagent.core.Scenes.Hud;
 import com.justingames.soulagent.core.Utils.Assets.Background;
 import com.justingames.soulagent.core.Utils.World.CollisionHandler;
+import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter {
 	private Game game;
@@ -37,6 +39,8 @@ public class GameScreen extends ScreenAdapter {
 	private OrthogonalTiledMapRenderer mapRenderer;
 	
 	private Player player;
+	
+	private ArrayList<Stone> stones;
 	
 	private Hud hud;
 	
@@ -60,6 +64,11 @@ public class GameScreen extends ScreenAdapter {
 		
 		player = new Player(world, mapObjects.getPlayerSpawnPoint());
 		
+		ArrayList<Vector2> stoneSpawns = mapObjects.getStoneSpawns();
+		stones = new ArrayList<Stone>();
+		for (Vector2 spawn : stoneSpawns)
+			stones.add(new Stone(world, new Vector2(spawn.x, spawn.y)));
+		
 		hud = new Hud(player);
 	}
 	
@@ -82,6 +91,9 @@ public class GameScreen extends ScreenAdapter {
 		
 		player.draw(Game.batch);
 		
+		for (Stone stone : stones)
+			stone.draw(Game.batch);
+		
 		Game.batch.end();
 		
 		//Render the world debug
@@ -100,6 +112,8 @@ public class GameScreen extends ScreenAdapter {
 		//Update the world and the game objects
 		world.step(1 / 60f, 6, 2);
 		player.update(deltaTime);
+		for (Stone stone : stones)
+			stone.update(deltaTime);
 		
 		//Updating the HUD
 		hud.update();

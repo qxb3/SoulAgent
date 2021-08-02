@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<map version="1.2" orientation="orthogonal" renderorder="right-down" width="64" height="22" tilewidth="16" tileheight="16" nextobjectid="24">
+<map version="1.2" orientation="orthogonal" renderorder="right-down" width="64" height="22" tilewidth="16" tileheight="16" nextobjectid="20">
   <properties>
     <property name="sw1" value="15" />
     <property name="sw2" value="25" />
@@ -10,25 +10,25 @@
     <image source="tileset/tileset.png" width="192" height="96" />
   </tileset>
   <objectgroup name="collidable">
-    <object name="" type="" id="11" x="0" y="160">
-      <polygon points="0,0 32,0 32,64 0,64 " />
+    <object name="" type="" id="12" x="0" y="112">
+      <polygon points="0,0 32,0 32,112 0,112 " />
     </object>
-    <object name="" type="" id="12" x="0" y="224">
+    <object name="" type="" id="13" x="0" y="224">
       <polygon points="0,0 224,0 224,128 0,128 " />
     </object>
-    <object name="" type="" id="18" x="272" y="208">
+    <object name="" type="" id="15" x="272" y="208">
       <polygon points="0,0 112,0 112,144 0,144 " />
     </object>
-    <object name="" type="" id="19" x="384" y="352">
-      <polygon points="0,0 0,-192 224,-192 224,0 " />
+    <object name="" type="" id="16" x="384" y="352">
+      <polygon points="0,0 0,-208 224,-208 224,0 " />
     </object>
-    <object name="" type="" id="20" x="672" y="160">
+    <object name="" type="" id="17" x="672" y="160">
       <polygon points="0,0 48,0 48,32 0,32 " />
     </object>
-    <object name="" type="" id="22" x="784" y="352">
-      <polygon points="0,0 0,-192 208,-192 208,0 " />
+    <object name="" type="" id="18" x="784" y="160">
+      <polygon points="0,0 208,0 208,192 0,192 " />
     </object>
-    <object name="" type="" id="23" x="992" y="352">
+    <object name="" type="" id="19" x="992" y="352">
       <polygon points="0,0 0,-304 32,-304 32,0 " />
     </object>
   </objectgroup>
@@ -44,7 +44,7 @@
   </objectgroup>
   <layer name="graphics" width="64" height="22">
     <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAO2VzQqAIBCEtc790K0fev/HTDGhg5nbrig4A3PqMPOxEyoFQVBr0sZd6RIFNRiPpUsUFPjBD/52tSjHb9+APmOOf2coDvXRCd8oPpXjt57YlO/yO6M41Gc13ox3oYyvPCn5neXsw+Wf/8Ldiu3vubNa+Y9I/5T/k5vPvYd0PvU+fzZe0/25/aTzwQ9+8IMf/Pn5L4saMhEAFgAA
+   H4sIAAAAAAAAAO2UyQ6AIAxEUc8u8eYS//8zhSgJB8LWSkmcSeY889qCUhAE/U2ddi9dQlCj9iRdQlDgf/jNGxiEu0jI8hvPwl0kVIvf/rM5rnGPq6rD78451b4+do6+2ZTM+IrkcYmLf9PetQ+mjFgel9w7+6oPlX8phXsVuj/3zlrlPwP9U/4naj51H9z5ufspufGW9k/tx50PfvCDH/zg/57/BngNuGAAFgAA
   </data>
   </layer>
 </map>

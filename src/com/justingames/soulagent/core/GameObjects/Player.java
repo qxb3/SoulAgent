@@ -4,15 +4,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.justingames.soulagent.core.Game;
-import com.justingames.soulagent.core.Utils.Assets.Assets;
 import com.justingames.soulagent.core.Utils.PlayerController.ImageButton;
 import com.justingames.soulagent.core.Utils.PlayerController.Joystick;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 
 public class Player extends GameObject {
 	private Joystick joystick;
@@ -32,8 +31,8 @@ public class Player extends GameObject {
 	public Player(World world, Vector2 position) {
 		super(world, position);
 		
-		joystick = new Joystick(0, Assets.instance.skins.getDrawable("touchpad_background"), Assets.instance.skins.getDrawable("touchpad_knob"));
-		attackButton = new ImageButton(Assets.instance.skins.getDrawable("button_attack"), Assets.instance.skins.getDrawable("button_attack_pressed"));
+		joystick = new Joystick(0, Game.assets.skins.getDrawable("touchpad_background"), Game.assets.skins.getDrawable("touchpad_knob"));
+		attackButton = new ImageButton(Game.assets.skins.getDrawable("button_attack"), Game.assets.skins.getDrawable("button_attack_pressed"));
 		attackButton.addListener(new EventListener() {
 			@Override
 			public boolean handle(Event event) {
@@ -41,7 +40,7 @@ public class Player extends GameObject {
 				return true;
 			}
 		});
-		jumpButton = new ImageButton(Assets.instance.skins.getDrawable("button_jump"), Assets.instance.skins.getDrawable("button_jump_pressed"));
+		jumpButton = new ImageButton(Game.assets.skins.getDrawable("button_jump"), Game.assets.skins.getDrawable("button_jump_pressed"));
 		jumpButton.addListener(new EventListener() {
 			@Override
 			public boolean handle(Event event) {
@@ -53,8 +52,8 @@ public class Player extends GameObject {
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		
-		this.setBounds(0, 0, 0.32f, 0.32f);
-		this.setRegion(Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true));
+		this.setBounds(this.position.x, this.position.y, 0.32f, 0.32f);
+		this.setRegion(Game.assets.playerAssets.idleAnimation.getKeyFrame(stateTime, true));
 	}
 	
 	@Override
@@ -72,7 +71,7 @@ public class Player extends GameObject {
 		fixtureDef.density = 4f;
         fixtureDef.friction = 0.01f;
 		fixtureDef.filter.categoryBits = Game.PlayerBit;
-		fixtureDef.filter.maskBits = Game.GroundBit;
+		fixtureDef.filter.maskBits = Game.GroundBit | Game.StoneBit;
 		
 		body = world.createBody(bodyDef);
         body.createFixture(fixtureDef).setUserData(this);
@@ -85,28 +84,28 @@ public class Player extends GameObject {
 		edgeShape.set(new Vector2(-0.08f, -0.16f), new Vector2(0.08f, -0.16f));
 		fixtureDef.shape = edgeShape;
 		fixtureDef.filter.categoryBits = Game.PlayerFootBit;
-		fixtureDef.filter.maskBits = Game.GroundBit;
+		fixtureDef.filter.maskBits = Game.GroundBit | Game.StoneBit;
 		body.createFixture(fixtureDef).setUserData(this);
 	}
 	
 	@Override
 	public void update(float deltaTime) {
-		this.position = body.getPosition();
-		setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-		setRegion(getFrame(deltaTime));
 		handleInput();
+		
+		this.position = body.getPosition();
+		this.setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+		this.setRegion(getFrame(deltaTime));
 	}
 	
 	public void handleInput() {
-		float horizontalSpeed = body.getLinearVelocity().x;
 		float verticalSpeed = body.getLinearVelocity().y;
 		
-		if (!isDamaged || isDead) {
-			if (joystick.isLeft() && horizontalSpeed >= - 1.2f) {
-				body.applyLinearImpulse(new Vector2(-0.06f, 0), body.getWorldCenter(), true);
+		if (!isDamaged || !isDead) {
+			if (joystick.isLeft()) {
+				body.setLinearVelocity(-1.2f, verticalSpeed);
 				runningRight = false;
-			} else if (joystick.isRight() && horizontalSpeed <= 1.2f) {
-				body.applyLinearImpulse(new Vector2(0.06f, 0), body.getWorldCenter(), true);
+			} else if (joystick.isRight()) {
+				body.setLinearVelocity(1.2f, verticalSpeed);
 				runningRight = true;
 			} else if (joystick.isCenter()) {
 				body.setLinearVelocity(0, verticalSpeed);
@@ -128,22 +127,22 @@ public class Player extends GameObject {
        
 		switch (currentState) {
             case JUMPING:
-                region = Assets.instance.playerAssets.jumpingAnimation.getKeyFrame(stateTime, true);
+                region = Game.assets.playerAssets.jumpingAnimation.getKeyFrame(stateTime, true);
                 break;
             case RUNNING:
-                region = Assets.instance.playerAssets.runningAnimation.getKeyFrame(stateTime, true);
+                region = Game.assets.playerAssets.runningAnimation.getKeyFrame(stateTime, true);
                 break;
             case FALLING:
-                region = Assets.instance.playerAssets.fallingAnimation.getKeyFrame(stateTime, true);
+                region = Game.assets.playerAssets.fallingAnimation.getKeyFrame(stateTime, true);
                 break;
             case DEAD:
-                region = Assets.instance.playerAssets.deathAnimation.getKeyFrame(stateTime, false);
+                region = Game.assets.playerAssets.deathAnimation.getKeyFrame(stateTime, false);
                 break;
             case STANDING:
-				region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
+				region = Game.assets.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
 				break;
             default:
-                region = Assets.instance.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
+                region = Game.assets.playerAssets.idleAnimation.getKeyFrame(stateTime, true);
                 break;
         }
 
@@ -167,12 +166,12 @@ public class Player extends GameObject {
 	
 	public State getState() {
 		if (isDead)
-			return State.DEAD;
-        if (body.getLinearVelocity().y < 0 || (body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
-            return State.FALLING;
-        else if (body.getLinearVelocity().x != 0)
+			return State.DEAD;    
+		if (body.getLinearVelocity().y < 0 && !canJump || (body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+			return State.FALLING;
+        else if (body.getLinearVelocity().x != 0 && !(body.getLinearVelocity().y > 0))
             return State.RUNNING;
-        else if (body.getLinearVelocity().y > 0)
+        else if (body.getLinearVelocity().y > 0 && !canJump)
             return State.JUMPING;
         else
             return State.STANDING;

@@ -18,6 +18,7 @@ public class CollisionHandler implements ContactListener {
 		
 		switch(fixtureBit) {
 			case Game.PlayerFootBit | Game.GroundBit:
+			case Game.PlayerFootBit | Game.StoneBit:
 				if (fixtureA.getFilterData().categoryBits == Game.PlayerFootBit)
 					((Player) fixtureA.getUserData()).canJump = true;
 				if (fixtureB.getFilterData().categoryBits == Game.PlayerFootBit)
@@ -36,6 +37,7 @@ public class CollisionHandler implements ContactListener {
 		
 		switch(fixtureBit) {
 			case Game.PlayerFootBit | Game.GroundBit:
+			case Game.PlayerFootBit | Game.StoneBit:
 				if (fixtureA.getFilterData().categoryBits == Game.PlayerFootBit)
 					((Player) fixtureA.getUserData()).canJump = false;
 				if (fixtureB.getFilterData().categoryBits == Game.PlayerFootBit)

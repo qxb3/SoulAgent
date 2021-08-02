@@ -53,7 +53,7 @@ public class TiledMapObjects {
 				fixtureDef.density = 1000f;
 				fixtureDef.friction = 1.16f;
 				fixtureDef.filter.categoryBits = Game.GroundBit;
-				fixtureDef.filter.maskBits = Game.PlayerBit | Game.PlayerFootBit;
+				fixtureDef.filter.maskBits = Game.PlayerBit | Game.PlayerFootBit | Game.StoneBit;
 				
 				Body body = world.createBody(bodyDef);
 				body.createFixture(fixtureDef);
@@ -69,8 +69,8 @@ public class TiledMapObjects {
 		return null;
 	}
 
-//	public ArrayList<Vector2> getEnemyPoints() {
-//		ArrayList<Vector2> points = new ArrayList<>();
+//	public ArrayList<Vector2> getEnemySpawns() {
+//		ArrayList<Vector2> points = new ArrayList<Vector2>();
 //		for (MapObject object : map.getLayers().get("enemy_points").getObjects()) {
 //			Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 //			points.add(new Vector2(rectangle.x / Game.PPM, rectangle.y / Game.PPM));
@@ -78,15 +78,14 @@ public class TiledMapObjects {
 //		return points;
 //	}
 
-//	public ArrayList<Stone> getStoneSpawnPoints() {
-//		ArrayList<Stone> stones = new ArrayList<>();
-//		for (MapObject object : map.getLayers().get("stone_points").getObjects()) {
-//			Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
-//			Stone stone = new Stone(world, new Vector2(rectangle.x / Game.PPM, rectangle.y / Game.PPM), 0.12f, 0.12f);
-//			stones.add(stone);
-//		}
-//		return stones;
-//	}
+	public ArrayList<Vector2> getStoneSpawns() {
+		ArrayList<Vector2> spawns = new ArrayList<Vector2>();
+		for (MapObject object : map.getLayers().get("stone_spawn").getObjects()) {
+			Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+			spawns.add(new Vector2(rectangle.x / Game.PPM, rectangle.y / Game.PPM));
+		}
+		return spawns;
+	}
 
 //	public ArrayList<Soul> getSoulSpawnPoints() {
 //		ArrayList<Soul> souls = new ArrayList<>();
